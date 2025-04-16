@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/CMakeFiles/robin-populate"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/CMakeFiles/robin-populate.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/CMakeFiles/robin-populate-complete.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/robin-populate-prefix/src/robin-populate-stamp/robin-populate-build.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/robin-populate-prefix/src/robin-populate-stamp/robin-populate-configure.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/robin-populate-prefix/src/robin-populate-stamp/robin-populate-download.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/robin-populate-prefix/src/robin-populate-stamp/robin-populate-install.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/robin-populate-prefix/src/robin-populate-stamp/robin-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/robin-populate-prefix/src/robin-populate-stamp/robin-populate-patch.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/robin-populate-prefix/src/robin-populate-stamp/robin-populate-test.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-subbuild/robin-populate-prefix/src/robin-populate-stamp/robin-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"robin-populate"
+		],
+		"name" : "robin-populate"
+	}
+}

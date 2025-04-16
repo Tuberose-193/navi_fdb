@@ -1,0 +1,5 @@
+if(EXISTS "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-build/tests/robin_unit_tests_tests-b858cb2.cmake")
+  include("/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/robin-build/tests/robin_unit_tests_tests-b858cb2.cmake")
+else()
+  add_test(robin_unit_tests_NOT_BUILT-b858cb2 robin_unit_tests_NOT_BUILT-b858cb2)
+endif()

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/CMakeFiles/pmc-download"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/CMakeFiles/pmc-download.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/CMakeFiles/pmc-download-complete.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/pmc-download-prefix/src/pmc-download-stamp/pmc-download-build.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/pmc-download-prefix/src/pmc-download-stamp/pmc-download-configure.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/pmc-download-prefix/src/pmc-download-stamp/pmc-download-download.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/pmc-download-prefix/src/pmc-download-stamp/pmc-download-install.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/pmc-download-prefix/src/pmc-download-stamp/pmc-download-mkdir.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/pmc-download-prefix/src/pmc-download-stamp/pmc-download-patch.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/pmc-download-prefix/src/pmc-download-stamp/pmc-download-test.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/pmc-download/pmc-download-prefix/src/pmc-download-stamp/pmc-download-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"pmc-download"
+		],
+		"name" : "pmc-download"
+	}
+}

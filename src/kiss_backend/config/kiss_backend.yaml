@@ -1,0 +1,38 @@
+kiss_beckend_node: 
+  ros__parameters: 
+    input:
+      need_voxel: true   #是否降采样，推荐，否则处理量过大
+      voxel_size: 0.1 #需匹配帧的降采样量
+      window_size: 50 #积累多少帧
+      passthrough_height: 2.5  #比地图高度高一点就行，太矮可能导致匹配z轴翻转
+      odom_frame: "odom"
+      lidar_frame: "lidar_link"
+      input_pointcloud_topic: "/cloud_registered_body" #"/livox/lidar/pointcloud" #"/cloud_registered" 
+      #推荐使用关键帧，原始帧有畸变
+
+    tgt_pcd_path: "/home/tuberose/pcd_map/RMUC2025.pcd" #先验地图
+
+    gicp_config:
+      num_threads_: 16 #貌似总是全核匹配
+      correspondence_randomness_: 30 #20 匹配采样点数量
+      max_num_iter_: 15 #30 迭代次数
+      voxel_res_: 0.1 #0.1 匹配体素大小
+      max_corr_dist_: 1.0 #1.0 匹配距离
+      scale_factor_for_corr_dist_: 10.0 #10.0 匹配距离缩放 max_corr_dist_ * scale_factor_for_corr_dist_
+      overlap_threshold_: 95.0 #97.0 匹配成功的阈值
+
+    kiss_config:
+      voxel_size: 0.2 #0.1 匹配体素大小
+      use_voxel_sampling: true #true 匹配体素采样
+      use_quatro: false #false
+      thr_linearity: 1.0 #1.5 1.0 
+      num_max_corr: 1000 #3000
+      ## Below params just works in general cases
+      normal_r_gain: 2.0 #3.0
+      fpfh_r_gain: 4.0 #5.0
+      ## The smaller, more conservative
+      robin_noise_bound_gain: 1.0 #1.0
+      solver_noise_bound_gain: 0.75  #0.75
+      enable_noise_bound_clamping: true
+      overlap_threshold_high: 5.0
+      overlap_threshold_low: 5.0

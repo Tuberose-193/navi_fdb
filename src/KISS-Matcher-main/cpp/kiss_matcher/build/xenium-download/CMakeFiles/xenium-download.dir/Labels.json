@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/CMakeFiles/xenium-download"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/CMakeFiles/xenium-download.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/CMakeFiles/xenium-download-complete.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/xenium-download-prefix/src/xenium-download-stamp/xenium-download-build.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/xenium-download-prefix/src/xenium-download-stamp/xenium-download-configure.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/xenium-download-prefix/src/xenium-download-stamp/xenium-download-download.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/xenium-download-prefix/src/xenium-download-stamp/xenium-download-install.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/xenium-download-prefix/src/xenium-download-stamp/xenium-download-mkdir.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/xenium-download-prefix/src/xenium-download-stamp/xenium-download-patch.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/xenium-download-prefix/src/xenium-download-stamp/xenium-download-test.rule"
+		},
+		{
+			"file" : "/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/xenium-download/xenium-download-prefix/src/xenium-download-stamp/xenium-download-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"xenium-download"
+		],
+		"name" : "xenium-download"
+	}
+}

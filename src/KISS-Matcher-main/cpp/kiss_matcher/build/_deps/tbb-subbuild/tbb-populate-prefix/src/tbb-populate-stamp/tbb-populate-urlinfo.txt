@@ -1,0 +1,12 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=url
+command=/usr/local/bin/cmake;-P;/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/tbb-subbuild/tbb-populate-prefix/src/tbb-populate-stamp/download-tbb-populate.cmake;COMMAND;/usr/local/bin/cmake;-P;/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/tbb-subbuild/tbb-populate-prefix/src/tbb-populate-stamp/verify-tbb-populate.cmake;COMMAND;/usr/local/bin/cmake;-P;/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/tbb-subbuild/tbb-populate-prefix/src/tbb-populate-stamp/extract-tbb-populate.cmake
+source_dir=/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps/tbb-src
+work_dir=/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher/build/_deps
+url(s)=https://github.com/uxlfoundation/oneTBB/archive/refs/tags/v2022.0.0.tar.gz
+hash=
+no_extract=
+

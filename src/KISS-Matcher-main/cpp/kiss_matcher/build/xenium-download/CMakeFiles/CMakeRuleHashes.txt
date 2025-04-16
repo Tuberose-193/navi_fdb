@@ -1,0 +1,11 @@
+# Hashes of file build rules.
+a61caece62782ec572f63a5dcb07d89a CMakeFiles/xenium-download
+2cc8cd294379ee0c13e7456198a9cae4 CMakeFiles/xenium-download-complete
+f47dc22e77ed1f72011312eb8cedaf4e xenium-download-prefix/src/xenium-download-stamp/xenium-download-build
+75f1fbb308ffd34963c138f1cbf14cf5 xenium-download-prefix/src/xenium-download-stamp/xenium-download-configure
+716d6589cb999d509d8ffdba42a623d2 xenium-download-prefix/src/xenium-download-stamp/xenium-download-download
+635fda6142ae0db3de4c4d33af0c5c18 xenium-download-prefix/src/xenium-download-stamp/xenium-download-install
+3526cb3e6b7813ba566a7cac95a2d3c4 xenium-download-prefix/src/xenium-download-stamp/xenium-download-mkdir
+bf929d77ec23d705e0fad3836fcdcab3 xenium-download-prefix/src/xenium-download-stamp/xenium-download-patch
+0adcb55f184755931007fc1df7ab97b1 xenium-download-prefix/src/xenium-download-stamp/xenium-download-test
+c574c565bd89f24aa1c34da82936b892 xenium-download-prefix/src/xenium-download-stamp/xenium-download-update

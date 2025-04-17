@@ -10,7 +10,7 @@ kiss_beckend_node:
       input_pointcloud_topic: "/cloud_registered_body" #"/livox/lidar/pointcloud" #"/cloud_registered" 
       #推荐使用关键帧，原始帧有畸变
 
-    tgt_pcd_path: "/home/tuberose/pcd_map/RMUC2025.pcd" #先验地图
+    tgt_pcd_path: "/home/auto/25automapws/PCD_MAP/0412fuer/0412fuerlow.pcd" #先验地图
 
     gicp_config:
       num_threads_: 16 #貌似总是全核匹配

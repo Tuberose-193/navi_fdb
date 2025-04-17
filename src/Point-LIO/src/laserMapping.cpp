@@ -1720,7 +1720,7 @@ private:
             /*** add the feature points to map kdtree ***/
             t3 = omp_get_wtime();//记录当前时间点。
             
-            if(feats_down_size > 4 && !feats_down_world->empty())//如果降采样后的特征点数量大于4。
+            if(feats_down_size > 4())//如果降采样后的特征点数量大于4。
             {
                  map_incremental();//执行地图的增量更新。
             }

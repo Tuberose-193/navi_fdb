@@ -5,7 +5,7 @@ import launch_ros.actions
 
 
 def generate_launch_description():
-    params_file = os.path.join(os.getcwd(), "src/KISS-Matcher-main/ros/config/params.yaml")
+    params_file = os.path.join(os.getcwd(), "src/KISS-Matcher/ros/config/params.yaml")
 
     return launch.LaunchDescription(
         [
@@ -22,7 +22,7 @@ def generate_launch_description():
                 arguments=[
                     "-d",
                     os.path.join(
-                        os.getcwd(), "src/KISS-Matcher-main/ros/rviz/kiss_matcher_reg.rviz"
+                        os.getcwd(), "src/KISS-Matcher/ros/rviz/kiss_matcher_reg.rviz"
                     ),
                 ],
                 output="screen",

@@ -178,7 +178,7 @@ class KissBackend : public rclcpp::Node {
     declare_parameter("base_dir", "");//useless now path is absolute
     declare_parameter("src_pcd_path", "");
     declare_parameter("src_pcd_topic", "low_local_map");
-    declare_parameter("tgt_pcd_path", "/home/tuberose/pcd_map/RMUC2025.pcd");
+    declare_parameter("tgt_pcd_path", "/home/auto/25automapws/0329seglow005.pcd");
     declare_parameter("resolution", 0.1);
     declare_parameter("moving_rate", 10.0);
     declare_parameter("frame_rate", 10.0);

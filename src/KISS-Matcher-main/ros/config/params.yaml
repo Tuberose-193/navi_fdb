@@ -1,6 +1,6 @@
 registration_visualizer:
   ros__parameters:
-    base_dir: "src/KISS-Matcher-main/cpp/examples/build/data/"
+    base_dir: "src/KISS-Matcher/cpp/examples/build/data/"
     # NOTE(dkim): These are provided examples of PCD pairs
     # src_pcd_path: "HeLiPR-KAIST05/Aeva.pcd"
     # tgt_pcd_path: "HeLiPR-KAIST05/Ouster.pcd"

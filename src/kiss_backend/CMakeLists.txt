@@ -20,7 +20,7 @@ if (USE_ADDRESS_SANITIZER)
     add_link_options(-fsanitize=address -fsanitize-recover=address)
 endif()
 # /home/auto/drivers/KISS-Matcher-main/cpp/kiss_matcher
-  add_subdirectory(/home/tuberose/ws_livox/src/KISS-Matcher-main/cpp/kiss_matcher ${CMAKE_CURRENT_BINARY_DIR}/kiss_matcher)
+  add_subdirectory(/home/auto/drivers/KISS-Matcher-main/cpp/kiss_matcher ${CMAKE_CURRENT_BINARY_DIR}/kiss_matcher)
 ## Export compile commands for clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 

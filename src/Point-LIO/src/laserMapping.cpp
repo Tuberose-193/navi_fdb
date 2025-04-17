@@ -1115,11 +1115,8 @@ public:
         auto map_period_ms = std::chrono::milliseconds(static_cast<int64_t>(1000.0));       // 1s
 
         map_pub_timer_ = rclcpp::create_timer(this, this->get_clock(), map_period_ms, std::bind(&LaserMappingNode::map_publish_callback, this));//发布Lasermap
-        //distance_pub_ = this->create_publisher<std_msgs::msg::Float32>("/target_distance", 10);
-        //h_distance_pub_ = this->create_publisher<std_msgs::msg::Float32>("/h_distance", 10);
-        navi_fdb_pub_ = this->create_publisher<std_msgs::msg::Float32>("/navi_fdb", 10);
-        //warning_distance_pub_ = this -> create_publisher<std_msgs::msg::Float32>("/warning_distance", 10);
-        // pcl::PointCloud<pcl::PointXYZ>::Ptr map_cloud_;
+        navi_fdb_pub_ = this->create_publisher<std_msgs::msg::Vector3>("/navi_fdb", 10);
+        
        
 
 
@@ -1738,22 +1735,19 @@ private:
 
 
                 // 发布水平距离
-                auto h_msg = std_msgs::msg::Float32();
-                h_msg.data = h_dist;
-                navi_fdb_pub_->publish(h_msg);
-
+                auto msg = geometry_msgs::msg::Vector3()
+                msg.x = h_dist;
                 //发布垂直距离
-                auto v_msg = std_msgs::msg::Float32();
-                v_msg.data = v_dist;
-                navi_fdb_pub_->publish(v_msg);
+                msg.y = v_dist;
+                navi_fdb_pub_->publish(msg);
     
 
     // 每10帧输出日志    
                 static int log_count = 0;
-                if (log_count++ % 10 == 0)
+                if (log_count++ % 10 == 0)  
              {
                  RCLCPP_INFO(this->get_logger(), 
-                "[测距] 当前位置: (%.2f, %.2f, %.2f) | 水平距离: %.2f米 | 垂直距离: %.2f米", current_position.x(), current_position.y(), current_position.z(), h_dist, v_dist);
+                "[测距] 当前位置: (%.2f, %.2f, %.2f) | 水平距离: %.2f米 | 垂直距离: %.2f米", current_position.x(), current_position.y(), current_position.z(), msg.x, msg.y);
     }
 }
 
@@ -1881,7 +1875,7 @@ private:
     //rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr distance_pub_;
     //rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr h_distance_pub_;
     //rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr warning_distance_pub_;  
-    rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr navi_fdb_pub_;
+    rclcpp::Publisher<std_msgs::msg::Vector3>::SharedPtr navi_fdb_pub_;
 
 //------------------------------------------------------------------------------------------------------
     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster;

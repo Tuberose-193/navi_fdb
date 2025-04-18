@@ -32,6 +32,7 @@
   <depend>message_generation</depend>
   <depend>eigen_conversions</depend>
   <depend>visualization_msgs</depend>
+  <depend>navi_msg</depend>
 
   <!-- <test_depend>rostest</test_depend>
   <test_depend>rosbag</test_depend> -->

@@ -1,6 +1,7 @@
 #include <omp.h>
 #include <limits>
 #include "std_msgs/msg/bool.hpp" 
+#include "navi_msg/msg/navi.hpp"
 #include <mutex>
 #include <math.h>
 #include <vector>
@@ -823,25 +824,32 @@ void publish_frame_body(rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::Shared
     pubLaserCloudFull_body->publish(laserCloudmsg);
     publish_count -= PUBFRAME_PERIOD;
 }
-void publish_map(rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubLaserCloudMap)
+void publish_map(rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubLaserCloudMap)//发布Lasermap
 {
-    // 从 ikdtree 中提取全局地图数据
-    PointCloudXYZI::Ptr global_cloud(new PointCloudXYZI());
-    PointVector().swap(ikdtree.PCL_Storage); // 清空临时存储
-    ikdtree.flatten(ikdtree.Root_Node, ikdtree.PCL_Storage, NOT_RECORD);
-    global_cloud->points = ikdtree.PCL_Storage;
+    bool dense_pub_en = false;
+    PointCloudXYZI::Ptr laserCloudFullRes(dense_pub_en ? feats_undistort : feats_down_body);//feats_down_body特征点
+    int size = laserCloudFullRes->points.size();
+    // std::cout  << "laserCloudFullRes->points.size(): " << laserCloudFullRes->points.size() << std::endl;
+    PointCloudXYZI::Ptr laserCloudWorld( \
+                    new PointCloudXYZI(size, 1));
 
-    // 转换为 ROS 消息
+    for (int i = 0; i < size; i++)
+    {
+        pointBodyToWorld(&laserCloudFullRes->points[i], \
+                            &laserCloudWorld->points[i]);
+    }
+    *pcl_wait_pub += *laserCloudWorld;
+
     sensor_msgs::msg::PointCloud2 laserCloudmsg;
-    pcl::toROSMsg(*global_cloud, laserCloudmsg);
+    pcl::toROSMsg(*pcl_wait_pub, laserCloudmsg);
     laserCloudmsg.header.stamp = get_ros_time(lidar_end_time);
     laserCloudmsg.header.frame_id = "odom";
-
-    // 发布地图
-    pubLaserCloudMap->publish(laserCloudmsg);
-
-    // 可选：保存调试数据
-     //pcl::io::savePCDFile("debug_map.pcd", *global_cloud);
+    int point_num = laserCloudmsg.row_step / laserCloudmsg.point_step;
+    // std::cout << "point_num: " << point_num << std::endl;
+    double stamp_ = (float)laserCloudmsg.header.stamp.sec;
+    pcd_map_.header.stamp = get_ros_time(lidar_end_time);
+    pcd_map_.header.frame_id = "odom";
+    pubLaserCloudMap->publish(pcd_map_);
 }
 bool is_first_kf_ = true;
 template<typename T>
@@ -1115,8 +1123,11 @@ public:
         auto map_period_ms = std::chrono::milliseconds(static_cast<int64_t>(1000.0));       // 1s
 
         map_pub_timer_ = rclcpp::create_timer(this, this->get_clock(), map_period_ms, std::bind(&LaserMappingNode::map_publish_callback, this));//发布Lasermap
-        navi_fdb_pub_ = this->create_publisher<std_msgs::msg::Vector3>("/navi_fdb", 10);
-        
+        //distance_pub_ = this->create_publisher<std_msgs::msg::Float32>("/target_distance", 10);
+        //h_distance_pub_ = this->create_publisher<std_msgs::msg::Float32>("/h_distance", 10);
+        navi_fdb_pub_ = this->create_publisher<navi_msg::msg::Navi>("/navi_fdb", 10);
+        //warning_distance_pub_ = this -> create_publisher<std_msgs::msg::Float32>("/warning_distance", 10);
+        // pcl::PointCloud<pcl::PointXYZ>::Ptr map_cloud_;
        
 
 
@@ -1191,6 +1202,8 @@ private:
         this->declare_parameter<int>("pcd_save.interval", -1); //-1
         this->declare_parameter<std::vector<double>>("mapping.static_target_point", std::vector<double>{0.0, 0.0, 0.0});
 
+        
+
         this->get_parameter_or<bool>("prop_at_freq_of_imu", prop_at_freq_of_imu, true);
         this->get_parameter_or<bool>("use_imu_as_input", use_imu_as_input, false);
         this->get_parameter_or<bool>("check_satu", check_satu, true);  
@@ -1249,6 +1262,7 @@ private:
         std::vector<double> target_point_vec;
         this->get_parameter_or<std::vector<double>>("mapping.static_target_point", target_point_vec, std::vector<double>{0.0, 0.0, 0.0});
         target_point = Eigen::Vector3d(target_point_vec.data());
+        
     }
 
 
@@ -1395,12 +1409,12 @@ private:
                 // std::string filename = "/home/wei/github_code/PCD/downsampled_rm_pt.pcd";
 
                 //1在这里把pcd地图载入
-                // std::string filename = "/home/fishros/RM_Taurus_Sentry_ws-cxr_sim/src/Point-LIO/PCD_SAVE/CUBE_MAP.pcd";
-                // map_cloud_ = loadPointcloudFromPcd(filename);
-                // ikdtree.Build(map_cloud_->points); 
+                std::string filename = "/home/tuberose/pcd_map/scans.pcd";
+                map_cloud_ = loadPointcloudFromPcd(filename);
+                ikdtree.Build(map_cloud_->points); 
 
                 //2现场建图
-                ikdtree.Build(init_feats_world->points);
+                //ikdtree.Build(init_feats_world->points);
 
                 init_map = true;//设置地图初始化标志为真。
                 publish_init_kdtree(pubLaserCloudMap); //(pubLaserCloudFullRes);发布初始化后的kdtree。
@@ -1717,7 +1731,7 @@ private:
             /*** add the feature points to map kdtree ***/
             t3 = omp_get_wtime();//记录当前时间点。
             
-            if(feats_down_size > 4())//如果降采样后的特征点数量大于4。
+            if(feats_down_size > 4)//如果降采样后的特征点数量大于4。
             {
                  map_incremental();//执行地图的增量更新。
             }
@@ -1735,76 +1749,26 @@ private:
 
 
                 // 发布水平距离
-                auto msg = geometry_msgs::msg::Vector3()
+                auto msg = navi_msg::msg::Navi();
                 msg.x = h_dist;
+                
+
                 //发布垂直距离
+                
                 msg.y = v_dist;
                 navi_fdb_pub_->publish(msg);
     
 
     // 每10帧输出日志    
                 static int log_count = 0;
-                if (log_count++ % 10 == 0)  
+                if (log_count++ % 10 == 0)
              {
                  RCLCPP_INFO(this->get_logger(), 
                 "[测距] 当前位置: (%.2f, %.2f, %.2f) | 水平距离: %.2f米 | 垂直距离: %.2f米", current_position.x(), current_position.y(), current_position.z(), msg.x, msg.y);
     }
 }
 
-//预警
-/* 
-            if (init_map && !prior_map_path.empty() && !feats_down_world->empty()) 
-{
-    int abnormal_count = 0;
-    float min_distance = std::numeric_limits<float>::max();
-    const float squared_warning_range = warning_range * warning_range;
 
-    // 遍历当前帧所有点云
-    for (const auto& point : feats_down_world->points) 
-    {
-        PointType search_point;
-        search_point.x = point.x;
-        search_point.y = point.y;
-        search_point.z = point.z;
-
-        PointVector nearest_points; // 存储邻近点云
-        std::vector<float> point_dist; // 存储距离值
-        
-        // 在ikdtree中搜索邻近点
-        int found_points = ikdtree.Nearest_Search(search_point, warning_range, nearest_points, point_dist);
-        
-        if (found_points == 0) 
-        {
-            // 无邻近点视为异常
-            abnormal_count++;
-            min_distance = std::min(min_distance, 0.0f);
-        } 
-        else 
-        {
-            // 计算最小距离
-            float current_min = std::sqrt(point_dist[0]);
-            if (current_min > warning_min_distance) 
-            {
-                abnormal_count++;
-                min_distance = std::min(min_distance, current_min);
-            }
-        }
-    }
-
-    // 发布预警信息
-    if (abnormal_count >= warning_min_points) 
-    {
-        auto msg = std_msgs::msg::Float32();
-        msg.data = (min_distance == std::numeric_limits<float>::max()) ? 0.0 : min_distance;
-        warning_distance_pub_->publish(msg);
-
-        RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
-            "检测到%d个异常点 阈值: %d 最小距离: %.2f米",
-            abnormal_count, warning_min_points, msg.data);
-    }
-}
-
-*/
             t5 = omp_get_wtime();//记录当前时间点。
             /******* Publish points *******/
             if (path_en)                         publish_path(pubPath);//如果启用了路径发布，则发布路径。
@@ -1872,10 +1836,7 @@ private:
     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pubPath;
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr plane_pub;
     rclcpp::TimerBase::SharedPtr map_pub_timer_;
-    //rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr distance_pub_;
-    //rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr h_distance_pub_;
-    //rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr warning_distance_pub_;  
-    rclcpp::Publisher<std_msgs::msg::Vector3>::SharedPtr navi_fdb_pub_;
+    rclcpp::Publisher<navi_msg::msg::Navi>::SharedPtr navi_fdb_pub_;
 
 //------------------------------------------------------------------------------------------------------
     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster;

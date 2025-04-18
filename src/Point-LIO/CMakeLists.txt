@@ -60,10 +60,12 @@ find_package(pcl_ros REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(livox_ros_driver2 REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/WarningMsg.msg"
+find_package(navi_msg REQUIRED)
+include_directories(
+  include
+  ${navi_msg_INCLUDE_DIRS}
 )
+
 
 set(dependencies
   rclcpp
@@ -77,6 +79,7 @@ set(dependencies
   pcl_ros
   pcl_conversions
   livox_ros_driver2
+  navi_msg
 )
 
 # include_directories(${PCL_INCLUDE_DIRS})
@@ -122,6 +125,7 @@ ament_target_dependencies(pointlio_mapping
   PythonLibs
   livox_ros_driver2
   visualization_msgs
+  navi_msg
   # eigen_conversions
   # matplotlibcpp
 )

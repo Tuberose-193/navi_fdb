@@ -1,7 +1,6 @@
 #include <omp.h>
 #include <limits>
-#include "std_msgs/msg/bool.hpp" 
-#include "navi_msg/msg/navi.hpp"
+#include "navi_msgs/msg/navi.hpp"
 #include <mutex>
 #include <math.h>
 #include <vector>
@@ -1125,7 +1124,7 @@ public:
         map_pub_timer_ = rclcpp::create_timer(this, this->get_clock(), map_period_ms, std::bind(&LaserMappingNode::map_publish_callback, this));//发布Lasermap
         //distance_pub_ = this->create_publisher<std_msgs::msg::Float32>("/target_distance", 10);
         //h_distance_pub_ = this->create_publisher<std_msgs::msg::Float32>("/h_distance", 10);
-        navi_fdb_pub_ = this->create_publisher<navi_msg::msg::Navi>("/navi_fdb", 10);
+        navi_fdb_pub_ = this->create_publisher<navi_msgs::msg::Navi>("/navi_fdb", 10);
         //warning_distance_pub_ = this -> create_publisher<std_msgs::msg::Float32>("/warning_distance", 10);
         // pcl::PointCloud<pcl::PointXYZ>::Ptr map_cloud_;
        
@@ -1749,13 +1748,13 @@ private:
 
 
                 // 发布水平距离
-                auto msg = navi_msg::msg::Navi();
-                msg.x = h_dist;
+                auto msg = navi_msgs::msg::Navi();
+                msg.spjl = h_dist;
                 
 
                 //发布垂直距离
                 
-                msg.y = v_dist;
+                msg.czgd = v_dist;
                 navi_fdb_pub_->publish(msg);
     
 
@@ -1764,7 +1763,7 @@ private:
                 if (log_count++ % 10 == 0)
              {
                  RCLCPP_INFO(this->get_logger(), 
-                "[测距] 当前位置: (%.2f, %.2f, %.2f) | 水平距离: %.2f米 | 垂直距离: %.2f米", current_position.x(), current_position.y(), current_position.z(), msg.x, msg.y);
+                "[测距] 当前位置: (%.2f, %.2f, %.2f) | 水平距离: %.2f米 | 垂直距离: %.2f米", current_position.x(), current_position.y(), current_position.z(), msg.spjl, msg.czgd);
     }
 }
 
@@ -1836,7 +1835,7 @@ private:
     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pubPath;
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr plane_pub;
     rclcpp::TimerBase::SharedPtr map_pub_timer_;
-    rclcpp::Publisher<navi_msg::msg::Navi>::SharedPtr navi_fdb_pub_;
+    rclcpp::Publisher<navi_msgs::msg::Navi>::SharedPtr navi_fdb_pub_;
 
 //------------------------------------------------------------------------------------------------------
     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster;
